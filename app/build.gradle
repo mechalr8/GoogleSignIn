@@ -3,6 +3,10 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+def apikeyPropertiesFile = rootProject.file("apikey.properties")
+def apikeyProperties = new Properties()
+
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 android {
     namespace 'com.example.googleoauth20signin'
     compileSdk 33
@@ -14,12 +18,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField("String", "CLIENT_ID", client_id)
-        buildConfigField("String", "PROJECT_ID", project_id)
-        buildConfigField("String", "AUTH_URI", auth_uri)
-        buildConfigField("String", "TOKEN_URI", token_uri)
-        buildConfigField("String", "AUTH_PROVIDER_X509_CERT_URL", auth_provider_x509_cert_url)
-        buildConfigField("String", "CLIENT_SECRET", client_secret)
+        buildConfigField("String", "CLIENT_ID", apikeyProperties['client_id'])
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
